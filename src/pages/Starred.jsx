@@ -1,8 +1,9 @@
 import React from 'react'
+import MainPage from '../components/MainPage'
 
 function Starred() {
   return (
-    <div>this is Starred page !!</div>
+    <MainPage>this is Starred page !!</MainPage>
   )
 }
 

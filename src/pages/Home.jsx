@@ -16,6 +16,15 @@ function Home() {
         setInput(ev.target.value)
         // console.log(ev.target.value)
     }
+
+    // useEffect(()=>{
+    //     console.log('use effect run')
+    //     return ()=>{
+    //         console.log('exit')
+    //     }
+    // },[searchOption])
+
+
     const onSearch=()=>{
         // https://api.tvmaze.com/search/shows?q=man
 
@@ -60,7 +69,7 @@ const renderResults=()=>{
 const onRadioChange=(ev)=>{
     setSearchOption(ev.target.value)
 }
-console.log(searchOption)
+// console.log(searchOption)
   return (
     <MainPage>
         <input 

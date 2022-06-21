@@ -1,20 +1,24 @@
 import React,{useEffect,useReducer,useState} from 'react'
 import {useParams} from 'react-router-dom'
+import Details from '../components/show/Details'
+import ShowMainData from '../components/show/ShowMainData'
 import { apiGet } from '../misc/confg'
+import Seasons from '../components/show/Seasons'
+import Cast from '../components/show/cast'
 
 const reducer=(prevState,action)=>{
 switch(action.type)
 {
 case 'FETCH_SUCCESS':{
-  return {...prevState,isLoading:false,error:null,show:action.show}
+  return {isLoading:false,error:null,show:action.show}
 }
 case 'FETCH_FAILED':{
   return{...prevState,isLoading:false,error:action.error}
 }
 default:return prevState
-}
-}
+};
 
+}
 const initialState={
   show:null,
   isLoading:true,
@@ -38,14 +42,14 @@ function Show() {
         let isMounted=true;
         apiGet(`/shows/${id}?embed[]=episodes&embed[]=cast`).then(results=>{
                 
-          setTimeout(() => {
+        
             if(isMounted){
               dispatch({type:'FETCH_SUCCESS',show:results})
               // setShow(results)
               //       setIsLoading(false)
             }
-          }, 2000)
-        }).catch(err=>{
+          })
+        .catch(err=>{
           if(isMounted){
 
             dispatch({type:'FETCH_FAILED',error:err.message})
@@ -55,12 +59,12 @@ function Show() {
     })
 
     return ()=>{
-      isMounted=false
+      isMounted=false;
     }
-    },[id])
+    },[id]);
 
-    console.log('show',show)
-    console.log('isLoading',isLoading)
+    // console.log('show',show)
+    // console.log('isLoading',isLoading)
     
     if(isLoading)
     {
@@ -72,9 +76,35 @@ function Show() {
     }
   return (
 
-      
+      <div>
+     <ShowMainData 
+     image={show.image} 
+     name={show.name}
+     rating={show.rating} 
+     summary={show.summary} 
+     tags={show.genres}/>
+
+
+
     <div>
-        this is show page
+      <h2>Details</h2>
+      <Details 
+      status={show.status}
+      network={show.network}
+      premiered={show.premiered}/>
+    </div>
+
+    {/* <div>
+      <h2>Seasons</h2>
+      <Seasons seasons={show._embedded.seasons} />
+    </div> */}
+
+    <div>
+      <h2>Cast</h2>
+      <Cast cast={show._embedded.cast}/>
+    </div>
+
+
     </div>
   )
 }

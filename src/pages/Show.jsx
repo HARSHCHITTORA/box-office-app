@@ -41,7 +41,7 @@ function Show() {
     // const [error,setError]=useState(null)
     useEffect(()=>{
         let isMounted=true;
-        apiGet(`/shows/${id}?embed[]=episodes&embed[]=cast`).then(results=>{
+        apiGet(`/shows/${id}?embed[]=seasons&embed[]=cast`).then(results=>{
                 
         
             if(isMounted){
@@ -95,10 +95,10 @@ function Show() {
       premiered={show.premiered}/>
     </InfoBlock>
 
-    {/* <div>
+    <div>
       <h2>Seasons</h2>
       <Seasons seasons={show._embedded.seasons} />
-    </div> */}
+    </div>
 
     <InfoBlock>
       <h2>Cast</h2>

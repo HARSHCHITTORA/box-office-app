@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import ActorGrid from '../components/actor/ActorGrid'
+import CustomRadio from '../components/CustomRadio'
 import MainPage from '../components/MainPage'
 import ShowGrid from '../components/show/ShowGrid'
 
 import {apiGet} from '../misc/confg'
+import { RadioInputsWrapper, SearchButtonWrapper, SearchInput } from './Home.styles'
 
 function Home() {
     const [input,setInput]=useState('')
@@ -72,36 +74,48 @@ const onRadioChange=(ev)=>{
 // console.log(searchOption)
   return (
     <MainPage>
-        <input 
+        {/* <input  */}
+        <SearchInput
         type="text" 
         placeholder='search for something'
         onChange={onInputChange} 
         onKeyDown={onKeyDown} 
         value={input}/>
 
-        <div>
-            <label htmlFor='shows-search'>
-                Shows
-                <input 
+        <RadioInputsWrapper>
+            <div>
+
+            {/* <label htmlFor='shows-search'> */}
+            <CustomRadio
+                label="Shows"
+                // <input 
                 id="shows-search" 
                 type='radio' 
                 value="shows" 
                 checked={isShowsSearch}
                 onChange={onRadioChange}/>
-            </label>
-            <label htmlFor='actors-search'>
-                Actors
-                <input 
+            {/* </label> */}
+            </div>
+            <div>
+
+            {/* <label htmlFor='actors-search'> */}
+            <CustomRadio
+                label="Actors"
+                // {/* <input  */}
                 id="actors-search" 
                 type='radio'
                 value="people"
                 checked={!isShowsSearch}
                  onChange={onRadioChange}/>
-            </label>
-        </div>
+            {/* </label> */}
+            </div>
+        </RadioInputsWrapper>
+
+         <SearchButtonWrapper>
 
         <button type='button' onClick={onSearch}>Search</button>
         {renderResults()}
+         </SearchButtonWrapper>
     </MainPage>
   )
 
